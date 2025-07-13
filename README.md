@@ -2,49 +2,31 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+This project is dedicated to complete Constellation techhub assignment:
 
-1. Install dependencies
+Problem Statement: Vehicle Results and Filtering
 
-   ```bash
-   npm install
-   ```
+You are tasked with implementing a simple vehicle results page in React Native. You should use Visual Studio Code to develop your solution and commit your code to a publicly accessible repo like GitHub.
 
-2. Start the app
+## Requirements
 
-   ```bash
-   npx expo start
-   ```
+Import the dataset of vehicles from the provided Json file. This file contains a randomly generated set of vehicles. Each vehicle should have the following properties:
+• Make
+• Model
+• Engine Size
+• Fuel Type
+• Year
+• Mileage
+• Auction Date and Time
+• Starting Bid
+• Favourite
 
-In the output, you'll find options to open the app in a
+Your application should store this data in state (of your choosing) and present the results in a friendly format. For each vehicle, please include a placeholder for an image. Feel free to indicate this is a placeholder, or choose your own image to display. Each vehicle should display the number of days and hours until its auction begins. Each vehicle in the results should clearly indicate if a user has selected the vehicle as a “favourite”.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+A user can interact with the page in the following ways…
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Provide the ability to filter by Make, Model, a Starting Bid range, and/or show only a user’s “favourite” vehicles.
 
-## Get a fresh project
+Allow a user to favourite or un-favourite a vehicle.
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Allow a user to click a vehicle in the results to display a vehicle details page about the clicked vehicle. Feel free to pad this page out with lorem ipsum to represent more detail.
