@@ -6,6 +6,9 @@ module.exports = defineConfig([
   expoConfig,
   {
     ignores: ["dist/*"],
+    plugins: {
+      "react-compiler": require("eslint-plugin-react-compiler"),
+    },
     rules: {
       "react-compiler/react-compiler": "error",
     },
