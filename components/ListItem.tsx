@@ -34,8 +34,6 @@ export const ListItem = ({ car }: ListItemProps) => {
   };
 
   const handlePress = () => {
-    console.log("Navigating to vehicle:", car.id);
-    console.log("Encoded ID:", encodeURIComponent(car.id));
     router.push(`/vehicle/${encodeURIComponent(car.id)}`);
   };
 
