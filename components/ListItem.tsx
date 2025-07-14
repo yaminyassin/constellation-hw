@@ -33,13 +33,20 @@ export const ListItem = ({ car }: ListItemProps) => {
   };
 
   return (
-    <View className="bg-slate-200 rounded-lg shadow-sm border border-gray-200  overflow-hidden">
+    <View
+      className="bg-white rounded-xl mx-4 overflow-hidden"
+      style={{
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        borderWidth: 1,
+        borderColor: "rgba(0,0,0,0.05)",
+      }}
+    >
       {/* Main content */}
-      <View className="flex-row p-3">
-        {/* Image placeholder */}
-        <View className="w-24 h-[100] bg-gray-100 rounded-md mr-3 self-center">
+      <View className="flex-row p-4">
+        {/* Image */}
+        <View className="w-28 h-24 bg-gray-100 rounded-lg mr-4 overflow-hidden">
           <Image
-            className="w-full h-full rounded-md"
+            className="w-full h-full"
             source={{ uri: "https://picsum.photos/200" }}
           />
         </View>
@@ -48,36 +55,42 @@ export const ListItem = ({ car }: ListItemProps) => {
         <View className="flex-1 flex-row justify-between">
           <View className="flex-1 justify-between">
             <View>
-              <Text className="text-lg font-bold text-gray-900 mb-1">
+              <Text className="text-xl font-bold text-gray-900 mb-1">
                 {car.make} {car.model}
               </Text>
               <Text className="text-sm text-gray-600 mb-1">
                 {car.year} • {car.engineSize} • {car.fuel}
               </Text>
-              <Text className="text-sm text-gray-600 mb-2">
+              <Text className="text-sm text-gray-500">
                 {car.mileage.toLocaleString()} miles
               </Text>
             </View>
 
-            <View>
-              <Text className="text-xs text-gray-500 mb-1">Starting bid</Text>
-              <Text className="text-lg font-semibold text-green-600">
+            <View className="mt-3">
+              <Text className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">
+                Starting bid
+              </Text>
+              <Text className="text-2xl font-bold text-emerald-600">
                 £{car.startingBid.toLocaleString()}
               </Text>
             </View>
           </View>
 
           {/* Right side content */}
-          <View className="items-center justify-between ">
+          <View className="items-center justify-between ml-3">
             {/* Favourite star */}
             <FavouriteButton id={car.id} onPress={onFavouritePress} />
 
             {/* Auction countdown */}
             <View className="items-end">
-              <Text className="text-xs text-gray-500 mb-1">Auction in</Text>
-              <Text className="text-sm font-medium text-blue-600">
-                {auctionCountdown()}
+              <Text className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">
+                Auction in
               </Text>
+              <View className="bg-blue-50 px-3 py-1 rounded-full">
+                <Text className="text-sm font-bold text-blue-700">
+                  {auctionCountdown()}
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -99,14 +112,14 @@ const FavouriteButton = ({
   return (
     <Pressable
       onPress={onPress}
-      className="p-2 rounded-full"
+      className={`p-3 rounded-full ${isFav ? "bg-amber-50" : "bg-gray-50"}`}
       style={({ pressed }) => ({
         opacity: pressed ? 0.7 : 1,
       })}
     >
       <Ionicons
         name={isFav ? "star" : "star-outline"}
-        size={28}
+        size={24}
         color={isFav ? "#F59E0B" : "#9CA3AF"}
       />
     </Pressable>

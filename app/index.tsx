@@ -6,7 +6,7 @@ import { VehicleWithId } from "@/models";
 import { useFiltersStore } from "@/store/filters";
 import { HeaderTitle } from "@react-navigation/elements";
 import { router } from "expo-router";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 export default function HomePage() {
@@ -33,26 +33,24 @@ export default function HomePage() {
   };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-gray-50">
       <Animated.FlatList
         showsVerticalScrollIndicator={false}
         stickyHeaderIndices={[1]}
-        ListEmptyComponent={() => (
-          <View className="flex-1 items-center justify-center">
-            <Text>No vehicles found</Text>
-          </View>
-        )}
         ListHeaderComponent={() => (
-          <View className="px-4 py-2">
-            <HeaderTitle className="font-semibold" style={{ fontSize: 32 }}>
+          <View className="px-6">
+            <HeaderTitle
+              className="font-bold text-gray-900"
+              style={{ fontSize: 32 }}
+            >
               Car Auction
             </HeaderTitle>
           </View>
         )}
         data={["sticky-header", ...vehicles] as (VehicleWithId | string)[]}
         renderItem={renderItem}
-        contentContainerClassName="gap-2"
-        className="flex-1 bg-slate-400"
+        contentContainerClassName="gap-3 pb-4"
+        className="flex-1"
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         keyExtractor={(item, index) =>

@@ -22,28 +22,28 @@ export function StickySearchHeader({
   placeholder,
 }: StickySearchHeaderProps) {
   return (
-    <View className="bg-white border-b border-gray-200">
-      <View className="px-4 py-3">
+    <View className="bg-white">
+      <View className="px-6 py-4">
         <View className="flex-row items-center gap-3">
-          <View className="flex-1 flex-row items-center bg-gray-100 rounded-lg px-3 py-2">
-            <Ionicons name="search" size={20} color="#666" />
+          <View className="flex-1 flex-row items-center bg-gray-100 rounded-xl px-4 py-3">
+            <Ionicons name="search" size={20} color="#6B7280" />
             <TextInput
-              className="flex-1 ml-2 text-base"
+              className="flex-1 ml-3 text-base text-gray-900"
               placeholder={placeholder}
               value={searchQuery}
               onChangeText={onSearchChange}
               clearButtonMode="always"
-              placeholderTextColor="#666"
+              placeholderTextColor="#9CA3AF"
             />
           </View>
-          <Pressable onPress={onFilterPress} className="p-2">
-            {({ pressed }) => (
-              <Ionicons
-                name={pressed ? "filter-circle" : "filter-circle-outline"}
-                size={28}
-                color="#000"
-              />
-            )}
+          <Pressable
+            onPress={onFilterPress}
+            className="p-3 bg-blue-600 rounded-xl"
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.8 : 1,
+            })}
+          >
+            <Ionicons name="options-outline" size={20} color="#FFFFFF" />
           </Pressable>
         </View>
       </View>
@@ -101,7 +101,10 @@ const ActiveFiltersChips = () => {
   }
 
   return (
-    <View className="px-4 pb-3">
+    <View className="px-6 pb-4 bg-white border-b border-gray-100">
+      <Text className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+        Active Filters
+      </Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -118,8 +121,8 @@ const ActiveFiltersChips = () => {
 
 const FilterChip = ({ label }: { label: string }) => {
   return (
-    <View className="bg-blue-100 rounded-full px-3 py-1 border border-blue-200">
-      <Text className="text-blue-800 text-sm font-medium">{label}</Text>
+    <View className="bg-blue-50 rounded-full px-4 py-2 border border-blue-200">
+      <Text className="text-blue-700 text-sm font-medium">{label}</Text>
     </View>
   );
 };
