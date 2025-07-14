@@ -22,8 +22,8 @@ export interface PriceRange {
 }
 
 export interface VehicleFilters {
-  make: string;
-  model: string;
+  makes: string[];
+  models: string[];
   priceRange: PriceRange;
   showFavouritesOnly: boolean;
   searchQuery: string;

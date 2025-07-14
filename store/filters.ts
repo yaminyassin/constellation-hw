@@ -7,20 +7,22 @@ interface FiltersState {
 }
 
 interface FiltersActions {
-  setMakeFilter: (make: string) => void;
-  setModelFilter: (model: string) => void;
+  setMakesFilter: (makes: string[]) => void;
+  setModelsFilter: (models: string[]) => void;
   setPriceRangeFilter: (priceRange: PriceRange) => void;
   setShowFavouritesOnly: (showFavouritesOnly: boolean) => void;
   setSearchQuery: (query: string) => void;
   setFilters: (filters: Partial<VehicleFilters>) => void;
   clearFilters: () => void;
+  clearMakes: () => void;
+  clearModels: () => void;
 }
 
 export type FiltersStore = FiltersState & FiltersActions;
 
 const defaultFilters: VehicleFilters = {
-  make: "",
-  model: "",
+  makes: [],
+  models: [],
   priceRange: { min: 0, max: 50000 },
   showFavouritesOnly: false,
   searchQuery: "",
@@ -28,8 +30,8 @@ const defaultFilters: VehicleFilters = {
 
 const isFiltersActive = (filters: VehicleFilters): boolean => {
   return (
-    filters.make !== "" ||
-    filters.model !== "" ||
+    filters.makes.length > 0 ||
+    filters.models.length > 0 ||
     filters.priceRange.min > 0 ||
     filters.priceRange.max < 50000 ||
     filters.showFavouritesOnly ||
@@ -43,9 +45,9 @@ export const useFiltersStore = create<FiltersStore>()((set) => ({
   isFiltersActive: false,
 
   // Actions
-  setMakeFilter: (make: string) => {
+  setMakesFilter: (makes: string[]) => {
     set((state) => {
-      const newFilters = { ...state.filters, make };
+      const newFilters = { ...state.filters, makes };
       return {
         filters: newFilters,
         isFiltersActive: isFiltersActive(newFilters),
@@ -53,9 +55,9 @@ export const useFiltersStore = create<FiltersStore>()((set) => ({
     });
   },
 
-  setModelFilter: (model: string) => {
+  setModelsFilter: (models: string[]) => {
     set((state) => {
-      const newFilters = { ...state.filters, model };
+      const newFilters = { ...state.filters, models };
       return {
         filters: newFilters,
         isFiltersActive: isFiltersActive(newFilters),
@@ -107,6 +109,26 @@ export const useFiltersStore = create<FiltersStore>()((set) => ({
     set({
       filters: defaultFilters,
       isFiltersActive: false,
+    });
+  },
+
+  clearMakes: () => {
+    set((state) => {
+      const newFilters = { ...state.filters, makes: [] };
+      return {
+        filters: newFilters,
+        isFiltersActive: isFiltersActive(newFilters),
+      };
+    });
+  },
+
+  clearModels: () => {
+    set((state) => {
+      const newFilters = { ...state.filters, models: [] };
+      return {
+        filters: newFilters,
+        isFiltersActive: isFiltersActive(newFilters),
+      };
     });
   },
 }));

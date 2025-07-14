@@ -3,16 +3,16 @@ import { StickySearchHeader } from "@/components/StickySearchHeader";
 import { useAnimatedHeader } from "@/hooks/useAnimatedHeader";
 import { useVehicles } from "@/hooks/useVehicle";
 import { VehicleWithId } from "@/models";
+import { useFiltersStore } from "@/store/filters";
 import { HeaderTitle } from "@react-navigation/elements";
 import { router } from "expo-router";
-import { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 export default function HomePage() {
   const vehicles = useVehicles();
   const { scrollHandler } = useAnimatedHeader("Car Auction");
-  const [searchQuery, setSearchQuery] = useState("");
+  const { filters, setSearchQuery } = useFiltersStore();
 
   const handleFilterPress = () => {
     router.push("/filters");
@@ -22,7 +22,7 @@ export default function HomePage() {
     if (typeof item === "string") {
       return (
         <StickySearchHeader
-          searchQuery={searchQuery}
+          searchQuery={filters.searchQuery}
           onSearchChange={setSearchQuery}
           onFilterPress={handleFilterPress}
           placeholder="Search vehicles..."
