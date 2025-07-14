@@ -2,49 +2,62 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## Project Requirements
 
-1. Install dependencies
+This project is dedicated to complete Constellation techhub assignment:
 
-   ```bash
-   npm install
-   ```
+Problem Statement: Vehicle Results and Filtering
 
-2. Start the app
+You are tasked with implementing a simple vehicle results page in React Native. You should use Visual Studio Code to develop your solution and commit your code to a publicly accessible repo like GitHub.
+Import the dataset of vehicles from the provided Json file. This file contains a randomly generated set of vehicles. Each vehicle should have the following properties:
+• Make
+• Model
+• Engine Size
+• Fuel Type
+• Year
+• Mileage
+• Auction Date and Time
+• Starting Bid
+• Favourite
 
-   ```bash
-   npx expo start
-   ```
+Your application should store this data in state (of your choosing) and present the results in a friendly format. For each vehicle, please include a placeholder for an image. Feel free to indicate this is a placeholder, or choose your own image to display. Each vehicle should display the number of days and hours until its auction begins. Each vehicle in the results should clearly indicate if a user has selected the vehicle as a “favourite”.
 
-In the output, you'll find options to open the app in a
+A user can interact with the page in the following ways…
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Provide the ability to filter by Make, Model, a Starting Bid range, and/or show only a user’s “favourite” vehicles.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Allow a user to favourite or un-favourite a vehicle.
 
-## Get a fresh project
+Allow a user to click a vehicle in the results to display a vehicle details page about the clicked vehicle. Feel free to pad this page out with lorem ipsum to represent more detail.
 
-When you're ready, run:
+## Project Layout
 
-```bash
-npm run reset-project
-```
+- **app/**: Contains route and screen files (e.g., `filters.tsx`, `index.tsx`, `vehicle/[id].tsx`) and layouts.
+- **components/**: Reusable UI components (e.g., `FavoriteButton.tsx`, `HorizontalChips.tsx`, `ListItem.tsx`, `StickySearchHeader.tsx`).
+- **hooks/**: Custom React hooks (e.g., `useVehicle.tsx`, `useAnimatedHeader.tsx`).
+- **helpers/**: Utility functions for data loading and formatting (`helpers.ts`).
+- **models/**: TypeScript interfaces and types (e.g., `VehicleWithId`).
+- **store/**: Zustand-based state management modules (`vehicles.ts`, `filters.ts`, `favourites.ts`).
+- **mocks/**: Mock data files (`vehicles.json`).
+- **assets/**: Static assets like fonts and images.
+- **Configuration files**: `app.json`, `babel.config.js`, `metro.config.js`, `tailwind.config.js`, `tsconfig.json`.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Store Implementation
 
-## Learn more
+We use Zustand for global state management, combined with the `persist` middleware to automatically save state to AsyncStorage:
 
-To learn more about developing your project with Expo, look at the following resources:
+- `vehicles.ts`: Defines `useVehiclesStore` for loading, updating, and retrieving vehicles, with error handling and persistence under the key `"vehicles-store"`.
+- `filters.ts`: Defines `useFiltersStore` to manage filter state (Make, Model, price range, favourites), with persistence under the key `"filters-store"`.
+- `favourites.ts`: Defines `useFavouritesStore` to track user-selected favourite vehicles, persisted under the key `"favourites-store"`.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Each store slice cleanly separates state and actions, enabling a lightweight and modular approach to state management.
 
-## Join the community
+## Styling & Animation
 
-Join our community of developers creating universal apps.
+### Styling
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+We use NativeWind, a Tailwind CSS-inspired library for React Native, enabling utility-first styling via the `className` prop, which improves readability, consistency, and developer experience. For cases where `className` isn't supported (e.g., certain shadow styles), we fallback to React Native's `StyleSheet`. We also use `Pressable` for touch interactions to leverage built-in feedback and accessibility. We destructure React imports for better tree-shaking and code clarity, avoid `useMemo`/`useCallback` as React Compiler automatically memoizes for us.
+
+### Animation
+
+Animations are powered by React Native Reanimated, using hooks like `useSharedValue`, `useAnimatedStyle`, and `useAnimatedScrollHandler` (as seen in `useAnimatedHeader`) to run animations on the native UI thread, ensuring smooth, jank-free updates and declarative APIs for complex interactions.

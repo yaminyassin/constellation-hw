@@ -1,0 +1,37 @@
+{
+  "home": {
+    "searchPlaceholder": "Search vehicles...",
+    "carAuction": "Car Auction"
+  },
+  "details": {
+    "vehicleDetails": "Vehicle Details",
+    "mileage": "Mileage",
+    "engineSize": "Engine Size",
+    "fuelType": "Fuel Type",
+    "year": "Year",
+    "startingBid": "Starting Bid",
+    "miles": "miles"
+  },
+  "listItem": {
+    "startingBid": "Starting bid",
+    "auctionIn": "Auction in",
+    "invalidDate": "Invalid date",
+    "miles": "miles"
+  },
+  "searchHeader": {
+    "activeFilters": "Active Filters",
+    "favouritesOnly": "Favourites Only"
+  },
+  "filters": {
+    "title": "Filters",
+    "make": "Make",
+    "model": "Model",
+    "priceRange": "Price Range",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price",
+    "favouritesOnly": "Favourites Only",
+    "clearAllFilters": "Clear All Filters",
+    "invalidRange": "Invalid Range",
+    "invalidRangeMessage": "Minimum price cannot be greater than maximum price"
+  }
+}

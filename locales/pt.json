@@ -1,0 +1,37 @@
+{
+  "home": {
+    "searchPlaceholder": "Pesquisar veículos...",
+    "carAuction": "Leilão de Carros"
+  },
+  "details": {
+    "vehicleDetails": "Detalhes do veículo",
+    "mileage": "Quilometragem",
+    "engineSize": "Tamanho do motor",
+    "fuelType": "Tipo de combustível",
+    "year": "Ano",
+    "startingBid": "Lance inicial",
+    "miles": "milhas"
+  },
+  "listItem": {
+    "startingBid": "Lance inicial",
+    "auctionIn": "Leilão em",
+    "invalidDate": "Data inválida",
+    "miles": "milhas"
+  },
+  "searchHeader": {
+    "activeFilters": "Filtros ativos",
+    "favouritesOnly": "Somente favoritos"
+  },
+  "filters": {
+    "title": "Filtros",
+    "make": "Marca",
+    "model": "Modelo",
+    "priceRange": "Faixa de preço",
+    "minPrice": "Preço mínimo",
+    "maxPrice": "Preço máximo",
+    "favouritesOnly": "Somente favoritos",
+    "clearAllFilters": "Limpar todos os filtros",
+    "invalidRange": "Faixa inválida",
+    "invalidRangeMessage": "O preço mínimo não pode ser maior que o preço máximo"
+  }
+}
