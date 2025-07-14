@@ -1,19 +1,35 @@
 import { ListItem } from "@/components/ListItem";
+import { StickySearchHeader } from "@/components/StickySearchHeader";
 import { useAnimatedHeader } from "@/hooks/useAnimatedHeader";
 import { useVehicles } from "@/hooks/useVehicle";
 import { VehicleWithId } from "@/models";
-import { Ionicons } from "@expo/vector-icons";
 import { HeaderTitle } from "@react-navigation/elements";
 import { router } from "expo-router";
-import { ActivityIndicator, Pressable, View } from "react-native";
+import { useState } from "react";
+import { ActivityIndicator, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 export default function HomePage() {
   const vehicles = useVehicles();
   const { scrollHandler } = useAnimatedHeader("Car Auction");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const renderItem = ({ item }: { item: VehicleWithId }) => {
-    return <ListItem car={item} />;
+  const handleFilterPress = () => {
+    router.push("/filters");
+  };
+
+  const renderItem = ({ item }: { item: VehicleWithId | string }) => {
+    if (typeof item === "string") {
+      return (
+        <StickySearchHeader
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onFilterPress={handleFilterPress}
+          placeholder="Search vehicles..."
+        />
+      );
+    }
+    return <ListItem car={item as VehicleWithId} />;
   };
 
   if (vehicles.length === 0) {
@@ -28,33 +44,23 @@ export default function HomePage() {
     <View className="flex-1">
       <Animated.FlatList
         showsVerticalScrollIndicator={false}
+        stickyHeaderIndices={[1]}
         ListHeaderComponent={() => (
-          <View className="flex-row items-center justify-between ">
+          <View className="px-4 py-2">
             <HeaderTitle className="font-semibold" style={{ fontSize: 32 }}>
               Car Auction
             </HeaderTitle>
-            <Pressable
-              onPress={() => {
-                router.push("/filters");
-              }}
-            >
-              {({ pressed }) => (
-                <Ionicons
-                  name={pressed ? "filter-circle" : "filter-circle-outline"}
-                  size={32}
-                  color="#000"
-                />
-              )}
-            </Pressable>
           </View>
         )}
-        contentContainerClassName="gap-2 px-4"
+        data={["sticky-header", ...vehicles] as (VehicleWithId | string)[]}
+        renderItem={renderItem}
+        contentContainerClassName="gap-2"
         className="flex-1 bg-slate-400"
         onScroll={scrollHandler}
         scrollEventThrottle={16}
-        data={vehicles}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) =>
+          index === 0 ? "sticky-header" : (item as VehicleWithId).id
+        }
       />
     </View>
   );
