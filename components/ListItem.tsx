@@ -1,6 +1,7 @@
 import { VehicleWithId } from "@/models";
 import { useFavouritesStore } from "@/store/favourites";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Image, Pressable, Text, View } from "react-native";
 import { FavouriteButton } from "./FavoriteButton";
 
@@ -10,6 +11,7 @@ export interface ListItemProps {
 
 export const ListItem = ({ car }: ListItemProps) => {
   const { toggleFavourite } = useFavouritesStore();
+  const { t } = useTranslation();
   const auctionCountdown = () => {
     const dateStr = car.auctionDateTime.replace(/\//g, "-");
     const auctionDate = new Date(dateStr);
@@ -17,7 +19,7 @@ export const ListItem = ({ car }: ListItemProps) => {
 
     // Check if the date is valid
     if (isNaN(auctionDate.getTime())) {
-      return "Invalid date";
+      return t("listItem.invalidDate");
     }
 
     const timeDiff = auctionDate.getTime() - now.getTime();
@@ -71,13 +73,13 @@ export const ListItem = ({ car }: ListItemProps) => {
                   {car.year} • {car.engineSize} • {car.fuel}
                 </Text>
                 <Text className="text-sm text-gray-500">
-                  {car.mileage.toLocaleString()} miles
+                  {car.mileage.toLocaleString()} {t("listItem.miles")}
                 </Text>
               </View>
 
               <View className="mt-3">
                 <Text className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">
-                  Starting bid
+                  {t("listItem.startingBid")}
                 </Text>
                 <Text className="text-2xl font-bold text-emerald-600">
                   £{car.startingBid.toLocaleString()}
@@ -93,7 +95,7 @@ export const ListItem = ({ car }: ListItemProps) => {
               {/* Auction countdown */}
               <View className="items-end">
                 <Text className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">
-                  Auction in
+                  {t("listItem.auctionIn")}
                 </Text>
                 <View className="bg-blue-50 px-3 py-1 rounded-full">
                   <Text className="text-sm font-bold text-blue-700">

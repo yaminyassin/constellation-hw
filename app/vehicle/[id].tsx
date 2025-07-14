@@ -3,6 +3,7 @@ import { useFavouritesStore } from "@/store/favourites";
 import { useVehiclesStore } from "@/store/vehicles";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -12,6 +13,7 @@ export default function VehicleDetailsPage() {
   const insets = useSafeAreaInsets();
   const { getVehicleById } = useVehiclesStore();
   const { toggleFavourite } = useFavouritesStore();
+  const { t } = useTranslation();
 
   const decodedId = decodeURIComponent(id!);
   const vehicle = getVehicleById(decodedId);
@@ -82,32 +84,34 @@ export default function VehicleDetailsPage() {
             <Text className="text-3xl font-bold text-gray-900">
               £{vehicle.startingBid.toLocaleString()}
             </Text>
-            <Text className="text-base text-gray-500">Starting Bid</Text>
+            <Text className="text-base text-gray-500">
+              {t("details.startingBid")}
+            </Text>
           </View>
 
           {/* Mileage */}
           <View className="mt-6 pt-6 border-t border-gray-200">
             <Text className="text-lg font-semibold text-gray-900 mb-2">
-              Vehicle Details
+              {t("details.vehicleDetails")}
             </Text>
             <View className="flex-row justify-between py-3">
-              <Text className="text-gray-600">Mileage</Text>
+              <Text className="text-gray-600">{t("details.mileage")}</Text>
               <Text className="font-medium text-gray-900">
-                {vehicle.mileage.toLocaleString()} miles
+                {vehicle.mileage.toLocaleString()} {t("details.miles")}
               </Text>
             </View>
             <View className="flex-row justify-between py-3">
-              <Text className="text-gray-600">Engine Size</Text>
+              <Text className="text-gray-600">{t("details.engineSize")}</Text>
               <Text className="font-medium text-gray-900">
                 {vehicle.engineSize}
               </Text>
             </View>
             <View className="flex-row justify-between py-3">
-              <Text className="text-gray-600">Fuel Type</Text>
+              <Text className="text-gray-600">{t("details.fuelType")}</Text>
               <Text className="font-medium text-gray-900">{vehicle.fuel}</Text>
             </View>
             <View className="flex-row justify-between py-3">
-              <Text className="text-gray-600">Year</Text>
+              <Text className="text-gray-600">{t("details.year")}</Text>
               <Text className="font-medium text-gray-900">{vehicle.year}</Text>
             </View>
           </View>

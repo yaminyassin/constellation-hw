@@ -1,6 +1,7 @@
 import { useFiltersStore } from "@/store/filters";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 
 interface StickySearchHeaderProps {
@@ -53,6 +54,7 @@ export function StickySearchHeader({
 }
 
 const ActiveFiltersChips = () => {
+  const { t } = useTranslation();
   const { filters } = useFiltersStore();
   const [activeFilters, setActiveFilters] = useState<FilterChipData[]>([]);
 
@@ -89,12 +91,12 @@ const ActiveFiltersChips = () => {
     if (filters.showFavouritesOnly) {
       newActiveFilters.push({
         type: "favourites",
-        label: "Favourites Only",
+        label: t("searchHeader.favouritesOnly"),
       });
     }
 
     setActiveFilters(newActiveFilters);
-  }, [filters]);
+  }, [filters, t]);
 
   if (activeFilters.length === 0) {
     return null;
@@ -103,7 +105,7 @@ const ActiveFiltersChips = () => {
   return (
     <View className="px-6 pb-4 bg-white border-b border-gray-100">
       <Text className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
-        Active Filters
+        {t("searchHeader.activeFilters")}
       </Text>
       <ScrollView
         horizontal

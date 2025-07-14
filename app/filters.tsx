@@ -4,6 +4,7 @@ import { useVehiclesStore } from "@/store/vehicles";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   Platform,
@@ -17,6 +18,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function FiltersModal() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const vehicles = useVehiclesStore((state) => state.vehicles);
@@ -51,10 +53,7 @@ export default function FiltersModal() {
     const max = parseInt(localMaxPrice) || 50000;
 
     if (min > max) {
-      Alert.alert(
-        "Invalid Range",
-        "Minimum price cannot be greater than maximum price"
-      );
+      Alert.alert(t("filters.invalidRange"), t("filters.invalidRangeMessage"));
       return;
     }
 
@@ -108,7 +107,9 @@ export default function FiltersModal() {
         showsVerticalScrollIndicator={false}
       >
         <View className="flex-row items-center justify-between">
-          <Text className="text-2xl font-bold text-gray-900 mb-6">Filters</Text>
+          <Text className="text-2xl font-bold text-gray-900 mb-6">
+            {t("filters.title")}
+          </Text>
           {Platform.OS === "android" && (
             <TouchableOpacity onPress={() => router.back()}>
               <Ionicons name="close" size={24} color="black" />
@@ -118,7 +119,7 @@ export default function FiltersModal() {
 
         {/* Make Filter */}
         <HorizontalChips
-          title="Make"
+          title={t("filters.make")}
           options={availableMakes}
           selectedValues={filters.makes}
           onChipPress={handleMakePress}
@@ -127,7 +128,7 @@ export default function FiltersModal() {
 
         {/* Model Filter */}
         <HorizontalChips
-          title="Model"
+          title={t("filters.model")}
           options={availableModels}
           selectedValues={filters.models}
           onChipPress={handleModelPress}
@@ -137,11 +138,13 @@ export default function FiltersModal() {
         {/* Price Range */}
         <View className="mb-6">
           <Text className="text-lg font-semibold text-gray-700 mb-3">
-            Price Range
+            {t("filters.priceRange")}
           </Text>
           <View className="flex-row gap-4">
             <View className="flex-1">
-              <Text className="text-sm text-gray-600 mb-2">Min Price</Text>
+              <Text className="text-sm text-gray-600 mb-2">
+                {t("filters.minPrice")}
+              </Text>
               <TextInput
                 className="bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 min-h-12"
                 placeholder="0"
@@ -152,7 +155,9 @@ export default function FiltersModal() {
               />
             </View>
             <View className="flex-1">
-              <Text className="text-sm text-gray-600 mb-2">Max Price</Text>
+              <Text className="text-sm text-gray-600 mb-2">
+                {t("filters.maxPrice")}
+              </Text>
               <TextInput
                 className="bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 min-h-12"
                 placeholder="50000"
@@ -169,7 +174,7 @@ export default function FiltersModal() {
         <View className="mb-8">
           <View className="flex-row items-center justify-between">
             <Text className="text-lg font-semibold text-gray-700">
-              Favourites Only
+              {t("filters.favouritesOnly")}
             </Text>
             <Switch
               value={filters.showFavouritesOnly}
@@ -189,7 +194,7 @@ export default function FiltersModal() {
           onPress={handleClearFilters}
         >
           <Text className="text-white font-semibold text-lg">
-            Clear All Filters
+            {t("filters.clearAllFilters")}
           </Text>
         </TouchableOpacity>
       </View>

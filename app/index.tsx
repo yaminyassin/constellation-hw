@@ -6,6 +6,7 @@ import { VehicleWithId } from "@/models";
 import { useFiltersStore } from "@/store/filters";
 import { HeaderTitle } from "@react-navigation/elements";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -13,6 +14,7 @@ export default function HomePage() {
   const vehicles = useVehicles();
   const { scrollHandler } = useAnimatedHeader("Car Auction");
   const { filters, setSearchQuery } = useFiltersStore();
+  const { t } = useTranslation();
 
   const handleFilterPress = () => {
     router.push("/filters");
@@ -25,7 +27,7 @@ export default function HomePage() {
           searchQuery={filters.searchQuery}
           onSearchChange={setSearchQuery}
           onFilterPress={handleFilterPress}
-          placeholder="Search vehicles..."
+          placeholder={t("home.searchPlaceholder")}
         />
       );
     }
@@ -43,7 +45,7 @@ export default function HomePage() {
               className="font-bold text-gray-900"
               style={{ fontSize: 32 }}
             >
-              Car Auction
+              {t("home.carAuction")}
             </HeaderTitle>
           </View>
         )}
