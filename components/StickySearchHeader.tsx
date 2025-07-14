@@ -24,6 +24,7 @@ export function StickySearchHeader({
             placeholder={placeholder}
             value={searchQuery}
             onChangeText={onSearchChange}
+            clearButtonMode="always"
             placeholderTextColor="#666"
           />
         </View>

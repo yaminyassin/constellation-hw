@@ -6,7 +6,7 @@ import { VehicleWithId } from "@/models";
 import { useFiltersStore } from "@/store/filters";
 import { HeaderTitle } from "@react-navigation/elements";
 import { router } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
+import { Text, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 export default function HomePage() {
@@ -32,19 +32,16 @@ export default function HomePage() {
     return <ListItem car={item as VehicleWithId} />;
   };
 
-  if (vehicles.length === 0) {
-    return (
-      <View className="flex-1 items-center justify-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
   return (
     <View className="flex-1">
       <Animated.FlatList
         showsVerticalScrollIndicator={false}
         stickyHeaderIndices={[1]}
+        ListEmptyComponent={() => (
+          <View className="flex-1 items-center justify-center">
+            <Text>No vehicles found</Text>
+          </View>
+        )}
         ListHeaderComponent={() => (
           <View className="px-4 py-2">
             <HeaderTitle className="font-semibold" style={{ fontSize: 32 }}>
