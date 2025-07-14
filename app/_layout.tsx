@@ -18,7 +18,13 @@ export default function RootLayout() {
     <StrictMode>
       <Stack screenOptions={{ headerShown: true }}>
         <Stack.Screen name="index" options={{ headerTintColor: "black" }} />
-        <Stack.Screen name="car/[id]" />
+        <Stack.Screen
+          name="vehicle/[id]"
+          options={{
+            headerShown: false,
+            title: "Vehicle Details",
+          }}
+        />
         <Stack.Screen
           name="filters"
           options={{ headerShown: true, presentation: "formSheet" }}
