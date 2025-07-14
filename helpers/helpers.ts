@@ -1,7 +1,7 @@
-import { Vehicle, VehicleWithId } from "@/models/Vehicles";
+import { Vehicle, VehicleWithId } from "@/models";
 
 const generateCarId = (car: Vehicle): string => {
-  return `${car.make}-${car.model}-${car.year}-${car.mileage}-${car.auctionDateTime}`;
+  return `${car.make}-${car.model}-${car.year}-${car.mileage}-${car.auctionDateTime}-${car.startingBid}-${car.engineSize}-${car.fuel}`;
 };
 
 export const addIdsToCars = (cars: Vehicle[]): VehicleWithId[] => {

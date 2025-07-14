@@ -1,3 +1,4 @@
+// Vehicle models
 export interface Vehicle {
   make: string;
   model: string;
@@ -10,7 +11,20 @@ export interface Vehicle {
   favourite: boolean;
 }
 
-// Optional: Add a type for vehicles with IDs
 export interface VehicleWithId extends Vehicle {
   id: string;
+}
+
+// Filter models
+export interface PriceRange {
+  min: number;
+  max: number;
+}
+
+export interface VehicleFilters {
+  make: string;
+  model: string;
+  priceRange: PriceRange;
+  showFavouritesOnly: boolean;
+  searchQuery: string;
 }
