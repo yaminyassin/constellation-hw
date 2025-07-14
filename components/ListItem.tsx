@@ -1,8 +1,7 @@
 import { VehicleWithId } from "@/models";
 import { useFavouritesStore } from "@/store/favourites";
-import { useVehiclesStore } from "@/store/vehicles";
 import { Ionicons } from "@expo/vector-icons";
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 
 export interface ListItemProps {
   car: VehicleWithId;
@@ -94,16 +93,22 @@ const FavouriteButton = ({
   id: string;
   onPress?: () => void;
 }) => {
-  const { isFavourite } = useVehiclesStore();
+  const { isFavourite } = useFavouritesStore();
+  const isFav = isFavourite(id);
 
   return (
-    <View className="items-center justify-between ">
+    <Pressable
+      onPress={onPress}
+      className="p-2 rounded-full"
+      style={({ pressed }) => ({
+        opacity: pressed ? 0.7 : 1,
+      })}
+    >
       <Ionicons
-        onPress={onPress}
-        name={isFavourite(id) ? "star" : "star-outline"}
-        size={32}
-        color="#9CA3AF"
+        name={isFav ? "star" : "star-outline"}
+        size={28}
+        color={isFav ? "#F59E0B" : "#9CA3AF"}
       />
-    </View>
+    </Pressable>
   );
 };

@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 
 interface HorizontalChipsProps {
   title: string;
@@ -22,30 +22,28 @@ export function HorizontalChips({
       <View className="flex-row items-center justify-between mb-3">
         <Text className="text-lg font-semibold text-gray-700">{title}</Text>
         {hasSelection && (
-          <TouchableOpacity
+          <Pressable
             className="px-3 py-1 bg-gray-200 rounded-md"
             onPress={onClear}
           >
             <Text className="text-sm text-gray-600 font-medium">Clear</Text>
-          </TouchableOpacity>
+          </Pressable>
         )}
       </View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         className="flex-1"
-        contentContainerStyle={{ paddingRight: 16 }}
+        contentContainerClassName="pr-4"
       >
         <View className="flex-row gap-2">
           {options.map((option) => {
             const isSelected = selectedValues.includes(option);
             return (
-              <TouchableOpacity
+              <Pressable
                 key={option}
                 className={`px-4 py-2 rounded-full border min-h-10 justify-center ${
-                  isSelected
-                    ? "bg-blue-500 border-blue-500"
-                    : "bg-white border-gray-300"
+                  isSelected && "bg-blue-500 border-blue-500"
                 }`}
                 onPress={() => onChipPress(option)}
               >
@@ -56,7 +54,7 @@ export function HorizontalChips({
                 >
                   {option}
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
             );
           })}
         </View>
