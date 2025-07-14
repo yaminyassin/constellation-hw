@@ -1,39 +1,61 @@
 import { ListItem } from "@/components/ListItem";
-import { loadVehiclesWithIds } from "@/helpers/helpers";
-import { VehicleWithId } from "@/models/Vehicles";
-import { useVehiclesStore } from "@/store";
-import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useAnimatedHeader } from "@/hooks/useAnimatedHeader";
+import { useVehicles } from "@/hooks/useVehicle";
+import { VehicleWithId } from "@/models";
+import { Ionicons } from "@expo/vector-icons";
+import { HeaderTitle } from "@react-navigation/elements";
+import { router } from "expo-router";
+import { ActivityIndicator, Pressable, View } from "react-native";
+import Animated from "react-native-reanimated";
 
 export default function HomePage() {
-  const insets = useSafeAreaInsets();
-  const { cars, setCars } = useVehiclesStore();
+  const vehicles = useVehicles();
+  const { scrollHandler } = useAnimatedHeader("Car Auction");
 
-  useEffect(() => {
-    const loadVehicles = async () => {
-      const vehiclesWithIds = await loadVehiclesWithIds();
-      setCars(vehiclesWithIds);
-    };
+  const renderItem = ({ item }: { item: VehicleWithId }) => {
+    return <ListItem car={item} />;
+  };
 
-    if (cars.length === 0) {
-      loadVehicles();
-    }
-  }, [cars.length, setCars]);
+  if (vehicles.length === 0) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      {cars.map((car: VehicleWithId) => (
-        <ListItem key={car.id} car={car} />
-      ))}
+    <View className="flex-1">
+      <Animated.FlatList
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={() => (
+          <View className="flex-row items-center justify-between ">
+            <HeaderTitle className="font-semibold" style={{ fontSize: 32 }}>
+              Car Auction
+            </HeaderTitle>
+            <Pressable
+              onPress={() => {
+                router.push("/filters");
+              }}
+            >
+              {({ pressed }) => (
+                <Ionicons
+                  name={pressed ? "filter-circle" : "filter-circle-outline"}
+                  size={32}
+                  color="#000"
+                />
+              )}
+            </Pressable>
+          </View>
+        )}
+        contentContainerClassName="gap-2 px-4"
+        className="flex-1 bg-slate-400"
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
+        data={vehicles}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#E6E6FA",
-    paddingHorizontal: 20,
-  },
-});

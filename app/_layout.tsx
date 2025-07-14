@@ -3,6 +3,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { StrictMode } from "react";
 import "react-native-reanimated";
+import "../global.css";
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -15,20 +16,12 @@ export default function RootLayout() {
 
   return (
     <StrictMode>
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: true }}>
+        <Stack.Screen name="index" options={{ headerTintColor: "black" }} />
+        <Stack.Screen name="car/[id]" />
         <Stack.Screen
-          name="index"
-          options={{
-            title: "Home",
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="car/[id]"
-          options={{
-            title: "Car Details",
-            headerShown: false,
-          }}
+          name="filters"
+          options={{ headerShown: true, presentation: "formSheet" }}
         />
       </Stack>
       <StatusBar style="auto" />

@@ -1,12 +1,3 @@
-import { StyleSheet, View } from "react-native";
-
-export default function ItemDetailPage() {
-  return <View style={styles.container}></View>;
+export default function VehicleDetailsPage() {
+  return <></>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});
